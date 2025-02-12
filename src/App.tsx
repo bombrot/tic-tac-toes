@@ -26,12 +26,13 @@ function App() {
     <>
       <main>
         {!isGameStarted && <>
+          <p className='info'>pick your mark</p>
           <div className='pick-mark'>
             <button onClick={() => setPlayerMark('x')} className={playerMark === 'x' ? 'pick-btn selected' : 'pick-btn'}>x</button>
             <button onClick={() => setPlayerMark('o')} className={playerMark === 'o' ? 'pick-btn selected' : 'pick-btn'}>o</button>
           </div>
-          <p className='pick-info'>x goes first</p>
-          <button className='play-btn' onClick={play}>play</button>
+          <p className='info'>x goes first</p>
+          <button className='play-btn' onClick={play}>PLAY</button>
         </>
         }
         {isGameStarted && !isGameOver && <Board setStatus={setStatus} player={playerMark} setIsGameOver={setIsGameOver} />}
