@@ -1,33 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
 import './App.css'
+import Board from './components/Board'
+// import getMove from './minimax.ts'
+// import Menu from './components/Menu.tsx'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [status, setStatus] = useState('')
+  const [playerMark, setPlayerMark] = useState('o')
+
+  const [isGameStarted, setIsGameStarted] = useState(false)
+  const [isGameOver, setIsGameOver] = useState(false)
+
+  function play() {
+    setIsGameStarted(true)
+  }
+  useEffect(() => {
+    let timer = 0
+    if (isGameOver) {
+      timer = setTimeout(() => {
+        setIsGameOver(false)
+      }, 1000)
+    }
+    return () => clearTimeout(timer)
+  }, [isGameOver])
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <main>
+        {!isGameStarted && <>
+          <div className='pick-mark'>
+            <button onClick={() => setPlayerMark('x')} className={playerMark === 'x' ? 'pick-btn selected' : 'pick-btn'}>x</button>
+            <button onClick={() => setPlayerMark('o')} className={playerMark === 'o' ? 'pick-btn selected' : 'pick-btn'}>o</button>
+          </div>
+          <p className='info'>x goes first</p>
+          <button className='play-btn' onClick={play}>play</button>
+        </>
+        }
+        {isGameStarted && !isGameOver && <Board setStatus={setStatus} player={playerMark} setIsGameOver={setIsGameOver} />}
+        {isGameOver && <div className='status'>{status}</div>}
+      </main>
     </>
   )
 }
