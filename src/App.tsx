@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import './App.css'
 import Board from './components/Board'
-// import getMove from './minimax.ts'
-// import Menu from './components/Menu.tsx'
 
 function App() {
   const [status, setStatus] = useState('')
@@ -34,7 +30,7 @@ function App() {
             <button onClick={() => setPlayerMark('x')} className={playerMark === 'x' ? 'pick-btn selected' : 'pick-btn'}>x</button>
             <button onClick={() => setPlayerMark('o')} className={playerMark === 'o' ? 'pick-btn selected' : 'pick-btn'}>o</button>
           </div>
-          <p className='info'>x goes first</p>
+          <p className='pick-info'>x goes first</p>
           <button className='play-btn' onClick={play}>play</button>
         </>
         }
